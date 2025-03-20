@@ -1,6 +1,4 @@
 
-
-
 ## yt-dlp on Windows
 
 - install uv
@@ -234,9 +232,15 @@ if __name__ == '__main__':
     sys.exit(app.exec())
 ```
 
+- Alias
+
+```bash
+if (!(Test-Path $PROFILE)) { New-Item -Type File -Path $PROFILE -Force }; notepad $PROFILE
+
+function run { & python "C:\Users\user\Downloads\yt-dlp-simple-gui\pyqt.py" }
+```
 
 - create executable
-
 
 ```bash
 ```
