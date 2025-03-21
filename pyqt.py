@@ -14,11 +14,20 @@ class UpdateWorker(QThread):
 
     def run(self):
         try:
-            subprocess.run([sys.executable, "-m", "pip", "install", "--upgrade", "yt-dlp"], 
-                         check=True, capture_output=True)
+            # Try to use uv with absolute path first, fall back to pip if it fails
+            try:
+                uv_path = "/Users/user/.local/bin/uv"
+                subprocess.run([uv_path, "pip", "install", "--upgrade", "yt-dlp"], 
+                             check=True, capture_output=True)
+            except (FileNotFoundError, subprocess.CalledProcessError):
+                # uv failed, use standard pip instead
+                subprocess.run([sys.executable, "-m", "pip", "install", "--upgrade", "yt-dlp"], 
+                             check=True, capture_output=True)
             self.finished.emit()
         except subprocess.CalledProcessError as e:
-            self.error.emit(f"Update failed: {e.stderr.decode()}")
+            self.error.emit(f"Update failed: {e.stderr.decode() if e.stderr else str(e)}")
+        except Exception as e:
+            self.error.emit(f"Update failed: {str(e)}")
 
 class DownloadWorker(QThread):
     progress = pyqtSignal(dict)
