@@ -20,7 +20,7 @@ class UpdateWorker(QThread):
                 print(sys.platform)
                 username = os.getlogin()  # Works on both Windows and Unix-like systems
                 if sys.platform == "win32":
-                    uv_path = f"C:/Users/{username}/Downloads/uv"
+                    uv_path = f"C:/Users/{username}/.local/bin\uv.exe"
                 else:
                     uv_path = f"/Users/{username}/.local/bin/uv"
                 subprocess.run([uv_path, "pip", "install", "--upgrade", "yt-dlp"], 
