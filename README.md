@@ -13,7 +13,7 @@
 
 ```bash
 powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
-cd C:\Users\user\Downloads
+cd C:\Users\user\Downloads\yt-dlp-simple-gui
 uv venv .venv --python 3.10
 ```
 
@@ -51,7 +51,7 @@ if (!(Test-Path $PROFILE)) { New-Item -Type File -Path $PROFILE -Force }; notepa
 
 ```bash
 # Activate virtual environment safely
-$venvPath = "C:\Users\$env:USERNAME\Downloads\.venv\Scripts\Activate.ps1"
+$venvPath = "C:\Users\$env:USERNAME\Downloads\yt-dlp-simple-gui\.venv\Scripts\Activate.ps1"
 if (Test-Path $venvPath) {
     & $venvPath
 } else {
