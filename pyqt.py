@@ -16,7 +16,13 @@ class UpdateWorker(QThread):
         try:
             # Try to use uv with absolute path first, fall back to pip if it fails
             try:
-                uv_path = "/Users/user/.local/bin/uv"
+               # Determine uv path based on operating system
+                print(sys.platform)
+                username = os.getlogin()  # Works on both Windows and Unix-like systems
+                if sys.platform == "win32":
+                    uv_path = f"C:/Users/{username}/Downloads/uv"
+                else:
+                    uv_path = f"/Users/{username}/.local/bin/uv"
                 subprocess.run([uv_path, "pip", "install", "--upgrade", "yt-dlp"], 
                              check=True, capture_output=True)
             except (FileNotFoundError, subprocess.CalledProcessError):
