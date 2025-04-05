@@ -1,6 +1,13 @@
 
 # yt-dlp on Windows
 
+## Download audio only
+
+```bash
+URL=....
+ yt-dlp -f bestaudio --extract-audio --audio-format mp3 --audio-quality 0 $URL
+```
+
 - [install uv](#install-uv)
 - [install ffmpeg using chocolatey](#install-ffmpeg-using-chocolatey)
 - [powersehll]
