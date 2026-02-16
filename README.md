@@ -67,7 +67,28 @@ if (Test-Path $venvPath) {
 
 function venv { & $venvPath }
 
-function run { & python "C:\Users\$env:USERNAME\Downloads\yt-dlp-simple-gui\pyqt.py" }
+function yt-run {
+    $projectPath = "$HOME\yt-dlp-simple-gui"
+    $venvActivate = Join-Path $projectPath ".venv\Scripts\Activate.ps1"
+    $scriptPath = Join-Path $projectPath "pyqt.py"
+
+    # Go to project directory
+    Set-Location $projectPath
+
+    # Activate THIS venv (override any currently active one)
+    if (Test-Path $venvActivate) {
+        & $venvActivate
+    } else {
+        Write-Host "Virtual environment not found in $projectPath" -ForegroundColor Red
+        return
+    }
+
+    # Upgrade yt-dlp
+    uv pip install --upgrade yt-dlp
+
+    # Run GUI
+    python $scriptPath
+}
 ```
 
  ### install requirements.txt
